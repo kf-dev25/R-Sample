@@ -9,20 +9,20 @@
 - data_background.R  
 解析対象データの概要（大まかな項目ごとの集計）
 
-- waveform.R
+- waveform.R  
 心臓の波形種別ごとの集計
 
-- epinephrine.R
+- epinephrine.R  
 搬送患者に薬剤投与が行われたかどうか、また行われた後の予後の集計
   
-- airway.R
+- airway.R  
 搬送患者に特定医療器具による治療行為が行われたかどうかまた行われた後の予後の集計
 
-- epinephrine_logistic_regression_analysis.R
+- epinephrine_logistic_regression_analysis.R  
 薬剤投与実施に関するロジスティック回帰分析
 
-- airway_logistic_regression_analysis.R
+- airway_logistic_regression_analysis.R  
 特定医療器具実施に関するロジスティック回帰分析
 
-- randomforest.R
+- randomforest.R  
 患者背景を元にしたランダムフォレストによる予後予測モデル
