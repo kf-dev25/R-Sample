@@ -1,48 +1,47 @@
 library(data.table)
 library(dplyr)
 
-# Às‚ÌÛ‚Íutstein_data‚ÌƒCƒ“ƒ|[ƒg‚ª•K—v
+# å®Ÿè¡Œã®éš›ã¯utstein_dataã®ã‚¤ãƒ³ãƒãƒ¼ãƒˆãŒå¿…è¦
 
-# ‰Šúƒf[ƒ^‚ÌƒGƒ‰[”rœ‚Æƒf[ƒ^‚Ì•ÏŠ·####
+# åˆæœŸãƒ‡ãƒ¼ã‚¿ã®ã‚¨ãƒ©ãƒ¼æ’é™¤ã¨æ™‚åˆ»ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ›####
 cleansed_utstein_data <-
   utstein_data %>%
-  filter(”N %in% 2005:2016) %>%
-  filter(”N >= 2010) %>%
-  filter(”N—î %in% 0:115) %>%
-  # 18ÎˆÈ‰º‚ÍˆãŠw“I‚É¬™Š³Ò‚ÆŒ©‚È‚³‚êA¬l‚Æ•a‘Ô‚âˆ’u•û–@“™‚ªˆÙ‚È‚Á‚Ä‚­‚é‚½‚ß
-  filter(”N—î >= 18) %>%
-  filter(‹~‹}‹~–½mæÔ == 1) %>%
-  filter(ˆãt‚ÌæÔ == 2) %>%
-  filter(‘Sg‹@”\ƒJƒeƒSƒŠ[ %in% 1:5) %>%
-  filter(!is.na(”N—î)) %>%
-  # ”gŒ`í•Ê2‚ÍŒ”‚ª­‚È‚·‚¬‚é‚½‚ßA‚Ü‚½”gŒ`í•Ê5‚Íu‚»‚Ì‘¼v‚Æ‚È‚Á‚Ä‚¨‚èí•Ê‚Ì“Á’è‚ª•s‰Â‚Ì‚½‚ßœŠO
-  filter(”gŒ`í•Ê == 1 | ”gŒ`í•Ê == 3 | ”gŒ`í•Ê == 4) %>%
-  filter(–òÜ“Š—^ %in% 0:1) %>%
-  filter(“Á’èsˆ×Ší‹ïg—p %in% 0:1) %>%
-  filter(“Á’èsˆ×Ší‹ïí•Ê %in% 0:3) %>%
-  filter((“Á’èsˆ×Ší‹ïg—p == 0 & “Á’èsˆ×Ší‹ïí•Ê == 0) | (“Á’èsˆ×Ší‹ïg—p == 1 & “Á’èsˆ×Ší‹ïí•Ê %in% 0:3)) %>%
-  mutate(”ñSŒ´«‚Ìí•Ê = ifelse(is.na(”ñSŒ´«‚Ìí•Ê), 0, ”ñSŒ´«‚Ìí•Ê)) %>%
-  filter(”ñSŒ´«‚Ìí•Ê %in% 0:5)%>%
-  mutate(S”ÄŠJ‚Ì—L–³ = if_else(S”ÄŠJ == 1, TRUE, FALSE)) %>%
-  mutate(¶‘¶‚Ì—L–³ = if_else(‘Sg‹@”\ƒJƒeƒSƒŠ[ >= 1 & ‘Sg‹@”\ƒJƒeƒSƒŠ[ <= 4, TRUE, FALSE)) %>%
-  mutate(‹@”\—\Œã = if_else(‘Sg‹@”\ƒJƒeƒSƒŠ[ >= 1 & ‘Sg‹@”\ƒJƒeƒSƒŠ[ <= 2, TRUE, FALSE)) %>%
+  filter(å¹´ %in% 2005:2016) %>%
+  filter(å¹´ >= 2010) %>%
+  filter(å¹´é½¢ %in% 0:115) %>%
+  # 18æ­³ä»¥ä¸‹ã¯åŒ»å­¦çš„ã«å°å…æ‚£è€…ã¨è¦‹ãªã•ã‚Œã€æˆäººã¨ç—…æ…‹ã‚„å‡¦ç½®æ–¹æ³•ç­‰ãŒç•°ãªã£ã¦ãã‚‹ãŸã‚
+  filter(å¹´é½¢ >= 18) %>%
+  filter(æ•‘æ€¥æ•‘å‘½å£«ä¹—è»Š == 1) %>%
+  filter(åŒ»å¸«ã®ä¹—è»Š == 2) %>%
+  filter(å…¨èº«æ©Ÿèƒ½ã‚«ãƒ†ã‚´ãƒªãƒ¼ %in% 1:5) %>%
+  filter(!is.na(å¹´é½¢)) %>%
+  # æ³¢å½¢ç¨®åˆ¥2ã¯ä»¶æ•°ãŒå°‘ãªã™ãã‚‹ãŸã‚ã€ã¾ãŸæ³¢å½¢ç¨®åˆ¥5ã¯ã€Œãã®ä»–ã€ã¨ãªã£ã¦ãŠã‚Šç¨®åˆ¥ã®ç‰¹å®šãŒä¸å¯ã®ãŸã‚é™¤å¤–
+  filter(æ³¢å½¢ç¨®åˆ¥ == 1 | æ³¢å½¢ç¨®åˆ¥ == 3 | æ³¢å½¢ç¨®åˆ¥ == 4) %>%
+  filter(è–¬å‰¤æŠ•ä¸ %in% 0:1) %>%
+  filter(ç‰¹å®šè¡Œç‚ºå™¨å…·ä½¿ç”¨ %in% 0:1) %>%
+  filter(ç‰¹å®šè¡Œç‚ºå™¨å…·ç¨®åˆ¥ %in% 0:3) %>%
+  filter((ç‰¹å®šè¡Œç‚ºå™¨å…·ä½¿ç”¨ == 0 & ç‰¹å®šè¡Œç‚ºå™¨å…·ç¨®åˆ¥ == 0) | (ç‰¹å®šè¡Œç‚ºå™¨å…·ä½¿ç”¨ == 1 & ç‰¹å®šè¡Œç‚ºå™¨å…·ç¨®åˆ¥ %in% 0:3)) %>%
+  mutate(éå¿ƒåŸæ€§ã®ç¨®åˆ¥ = ifelse(is.na(éå¿ƒåŸæ€§ã®ç¨®åˆ¥), 0, éå¿ƒåŸæ€§ã®ç¨®åˆ¥)) %>%
+  filter(éå¿ƒåŸæ€§ã®ç¨®åˆ¥ %in% 0:5)%>%
+  mutate(å¿ƒæ‹å†é–‹ã®æœ‰ç„¡ = if_else(å¿ƒæ‹å†é–‹ == 1, TRUE, FALSE)) %>%
+  mutate(ç”Ÿå­˜ã®æœ‰ç„¡ = if_else(å…¨èº«æ©Ÿèƒ½ã‚«ãƒ†ã‚´ãƒªãƒ¼ >= 1 & å…¨èº«æ©Ÿèƒ½ã‚«ãƒ†ã‚´ãƒªãƒ¼ <= 4, TRUE, FALSE)) %>%
+  mutate(æ©Ÿèƒ½äºˆå¾Œ = if_else(å…¨èº«æ©Ÿèƒ½ã‚«ãƒ†ã‚´ãƒªãƒ¼ >= 1 & å…¨èº«æ©Ÿèƒ½ã‚«ãƒ†ã‚´ãƒªãƒ¼ <= 2, TRUE, FALSE)) %>%
   
-  # ver-4Œn‚ÌR‚Å‚ÍŒn—ñƒf[ƒ^‚ªÅ‰‚©‚çPOSIXct‚Æ‚µ‚Ä”F¯‚³‚ê‚é‚½‚ß•ÏŠ·•s—v
-  # mutate(”­¶”NŒ“ú = as.POSIXct(strptime(”­¶”NŒ“ú, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(–ÚŒ‚ = as.POSIXct(strptime(–ÚŒ‚, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(B_CPRŠJn = as.POSIXct(strptime(B_CPRŠJn, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(‰‰ñœ×“®À{ = as.POSIXct(strptime(‰‰ñœ×“®À{, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(–òÜ“Š—^ = as.POSIXct(strptime(–òÜ“Š—^, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(Šo’m = as.POSIXct(strptime(Šo’m, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(Œ»’… = as.POSIXct(strptime(Œ»’…, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(ÚG = as.POSIXct(strptime(ÚG, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(CPRŠJn = as.POSIXct(strptime(CPRŠJn, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(•a‰@û—e = as.POSIXct(strptime(•a‰@û—e, "%Y/%m/%d %H:%M"))) %>%
-  # mutate(‰‰ñS”ÄŠJ = as.POSIXct(strptime(‰‰ñS”ÄŠJ, "%Y/%m/%d %H:%M"))) %>%
+  # mutate(ç™ºç”Ÿå¹´æœˆæ—¥ = as.POSIXct(strptime(ç™ºç”Ÿå¹´æœˆæ—¥, "%Y/%m/%d %H:%M"))) %>%
+  # mutate(ç›®æ’ƒæ™‚åˆ» = as.POSIXct(strptime(ç›®æ’ƒæ™‚åˆ», "%Y/%m/%d %H:%M"))) %>%
+  # mutate(B_CPRé–‹å§‹æ™‚åˆ» = as.POSIXct(strptime(B_CPRé–‹å§‹æ™‚åˆ», "%Y/%m/%d %H:%M"))) %>%
+  # mutate(åˆå›é™¤ç´°å‹•å®Ÿæ–½æ™‚åˆ» = as.POSIXct(strptime(åˆå›é™¤ç´°å‹•å®Ÿæ–½æ™‚åˆ», "%Y/%m/%d %H:%M"))) %>%
+  # mutate(è–¬å‰¤æŠ•ä¸æ™‚åˆ» = as.POSIXct(strptime(è–¬å‰¤æŠ•ä¸æ™‚åˆ», "%Y/%m/%d %H:%M"))) %>%
+  # mutate(è¦šçŸ¥ = as.POSIXct(strptime(è¦šçŸ¥, "%Y/%m/%d %H:%M"))) %>%
+  # mutate(ç¾ç€ = as.POSIXct(strptime(ç¾ç€, "%Y/%m/%d %H:%M"))) %>%
+  # mutate(æ¥è§¦ = as.POSIXct(strptime(æ¥è§¦, "%Y/%m/%d %H:%M"))) %>%
+  # mutate(CPRé–‹å§‹ = as.POSIXct(strptime(CPRé–‹å§‹, "%Y/%m/%d %H:%M"))) %>%
+  # mutate(ç—…é™¢åå®¹ = as.POSIXct(strptime(ç—…é™¢åå®¹, "%Y/%m/%d %H:%M"))) %>%
+  # mutate(åˆå›å¿ƒæ‹å†é–‹æ™‚åˆ» = as.POSIXct(strptime(åˆå›å¿ƒæ‹å†é–‹æ™‚åˆ», "%Y/%m/%d %H:%M"))) %>%
 
-  # ŠÔƒf[ƒ^‚ğ•ÏŠ·(‹ó”’‚È‚Ç‚ÍNA‚É‚È‚é)
-  mutate(Œ»’…ŠÔ = as.numeric(difftime(Œ»’…, Šo’m, units = "mins"))) %>%
-  mutate(•a‰@û—eŠÔ = as.numeric(difftime(•a‰@û—e, Œ»’…, units = "mins"))) %>%
-  filter(Œ»’…ŠÔ >= 0, •a‰@û—eŠÔ >= 0) %>%
-  filter(Œ»’…ŠÔ <= 1440, •a‰@û—eŠÔ <= 1440) %>%
-  filter(‹C“¹Šm•Û == 1)
+  # æ™‚é–“ãƒ‡ãƒ¼ã‚¿ã‚’å¤‰æ›(ç©ºç™½ãªã©ã¯NAã«ãªã‚‹)
+  mutate(ç¾ç€æ™‚é–“ = as.numeric(difftime(ç¾ç€, è¦šçŸ¥, units = "mins"))) %>%
+  mutate(ç—…é™¢åå®¹æ™‚é–“ = as.numeric(difftime(ç—…é™¢åå®¹, ç¾ç€, units = "mins"))) %>%
+  filter(ç¾ç€æ™‚é–“ >= 0, ç—…é™¢åå®¹æ™‚é–“ >= 0) %>%
+  filter(ç¾ç€æ™‚é–“ <= 1440, ç—…é™¢åå®¹æ™‚é–“ <= 1440) %>%
+  filter(æ°—é“ç¢ºä¿ == 1)
